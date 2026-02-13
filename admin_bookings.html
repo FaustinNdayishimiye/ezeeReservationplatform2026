@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EzeeAdmin - Bookings</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- FullCalendar -->
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ezee: {
+                            green: '#1A4D2E',
+                            dark: '#0F2C1B',
+                            brown: '#4E342E',
+                            gold: '#FF9F1C',
+                            light: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+
+        /* Calendar Customization */
+        .fc-toolbar-title {
+            font-size: 1.25rem !important;
+            font-weight: 700 !important;
+            color: #1f2937;
+        }
+
+        .fc-button {
+            background-color: white !important;
+            border-color: #e5e7eb !important;
+            color: #374151 !important;
+            font-weight: 500 !important;
+            padding: 0.5rem 1rem !important;
+            text-transform: capitalize !important;
+            box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05) !important;
+        }
+
+        .fc-button:hover {
+            background-color: #f9fafb !important;
+            border-color: #d1d5db !important;
+        }
+
+        .fc-button-active {
+            background-color: #1A4D2E !important;
+            border-color: #1A4D2E !important;
+            color: white !important;
+        }
+
+        .fc-daygrid-day-number {
+            color: #4b5563;
+            font-weight: 500;
+        }
+
+        .fc-col-header-cell-cushion {
+            color: #6b7280;
+            font-weight: 600;
+            padding: 12px 0 !important;
+        }
+
+        .fc-theme-standard td,
+        .fc-theme-standard th {
+            border-color: #e5e7eb;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans text-gray-800 antialiased flex h-screen overflow-hidden pt-16">
+
+    <!-- Global Header -->
+    <header
+        class="fixed top-0 left-0 w-full h-16 bg-white border-b border-gray-200 z-50 flex items-center justify-between px-4">
+        <div class="flex items-center gap-6">
+            <button onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')"
+                class="md:hidden text-gray-500 hover:text-ezee-green">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <div class="flex items-center gap-3">
+                <div class="flex items-center">
+                    <span class="text-ezee-dark font-bold tracking-wider font-sans italic text-xl">eZee
+                        <span class="text-ezee-gold">Admin</span></span>
+                </div>
+                <button
+                    class="hidden md:flex bg-gray-100 hover:bg-gray-200 text-gray-500 w-6 h-6 rounded-full items-center justify-center transition">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+            </div>
+            <div class="hidden md:flex items-center bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5 gap-2">
+                <i class="fa-solid fa-stopwatch text-gray-400"></i>
+                <span class="text-sm font-medium text-blue-500">02:44:15</span>
+                <button class="text-gray-400 hover:text-blue-500">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </button>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <button class="text-gray-400 hover:text-gray-600 relative">
+                <i class="fa-solid fa-circle-question text-lg"></i>
+            </button>
+            <button class="text-gray-400 hover:text-gray-600 relative">
+                <i class="fa-regular fa-bell text-lg"></i>
+                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+            </button>
+            <button class="text-gray-400 hover:text-gray-600 relative">
+                <i class="fa-solid fa-gift text-lg"></i>
+            </button>
+            <button class="text-gray-400 hover:text-gray-600 relative border-l border-gray-200 pl-4">
+                <i class="fa-solid fa-border-all text-lg"></i>
+            </button>
+            <img src="https://ui-avatars.com/api/?name=Admin+User&background=1A4D2E&color=fff" alt="User"
+                class="h-8 w-8 rounded-full border border-gray-200 cursor-pointer">
+            <div
+                class="h-8 w-8 rounded bg-orange-400 flex items-center justify-center text-white font-bold text-sm cursor-pointer border border-gray-200">
+                K
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside
+        class="w-64 bg-white border-r border-gray-200 flex-shrink-0 flex flex-col transition-all duration-300 transform -translate-x-full md:translate-x-0 fixed md:fixed z-40 top-16 bottom-0 left-0 h-[calc(100vh-4rem)]"
+        id="sidebar">
+        <nav class="flex-1 overflow-y-auto py-4">
+            <ul class="space-y-1 px-3">
+                <li>
+                    <a href="admin_dashboard.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <!-- Active State for Bookings -->
+                    <a href="admin_bookings.html"
+                        class="flex items-center px-4 py-3 bg-ezee-light text-ezee-green rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Bookings</span>
+                        <span class="ml-auto bg-ezee-gold text-white py-0.5 px-2 rounded-full text-xs">New</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_visitors.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Visitors</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_tour_companies.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Tour Companies</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_analytics.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Analytics & Reports</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="px-4 mt-8 mb-4">
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Management</h3>
+            </div>
+            <ul class="space-y-1 px-3">
+                <li>
+                    <a href="admin_activities.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="font-medium">Activities Capacity</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_settings.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span class="font-medium">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="p-4 border-t border-gray-200">
+            <div class="flex items-center gap-3">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=1A4D2E&color=fff" alt="Admin"
+                    class="h-9 w-9 rounded-full">
+                <div>
+                    <p class="text-sm font-semibold text-gray-700">Admin User</p>
+                    <p class="text-xs text-gray-500">Park Manager</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 md:ml-64 h-full">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-6">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">Bookings Calendar</h1>
+                    <p class="text-gray-500 text-sm">Manage and track all park bookings.</p>
+                </div>
+                <div class="flex items-center gap-4 mt-4 md:mt-0">
+                    <button onclick="openAddBookingModal()"
+                        class="flex items-center bg-ezee-green text-white px-4 py-2 rounded-lg hover:bg-ezee-dark transition shadow-sm text-sm font-medium">
+                        <i class="fa-solid fa-plus mr-2"></i> New Booking
+                    </button>
+                </div>
+            </div>
+
+            <!-- Calendar Container -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 p-6">
+                <div id='calendar'></div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Booking Details Modal -->
+    <div id="bookingModal" class="fixed inset-0 bg-gray-900 bg-opacity-50 hidden z-50 flex items-center justify-center">
+        <div class="bg-white rounded-xl shadow-xl w-full max-w-md mx-4 overflow-hidden transform transition-all">
+            <div class="bg-ezee-green px-6 py-4 flex justify-between items-center text-white">
+                <h3 class="font-bold text-lg" id="modalTitle">Booking Details</h3>
+                <button onclick="closeModal()" class="hover:text-gray-200"><i
+                        class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+            <div class="p-6">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs font-semibold text-gray-500 uppercase">Status</span>
+                        <span id="modalStatus"
+                            class="px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold">Confirmed</span>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Guest</p>
+                        <div class="flex items-center">
+                            <div
+                                class="h-8 w-8 rounded-full bg-gray-200 flex items-center justify-center text-xs font-bold text-gray-600 mr-3">
+                                JD</div>
+                            <div>
+                                <p class="font-bold text-gray-900" id="modalGuest">John Doe</p>
+                                <p class="text-xs text-gray-500" id="modalEmail">john@example.com</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Date</p>
+                            <p class="text-sm font-medium text-gray-800" id="modalDate">Feb 24, 2026</p>
+                        </div>
+                        <div>
+                            <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Time</p>
+                            <p class="text-sm font-medium text-gray-800" id="modalTime">09:00 AM</p>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Activity</p>
+                        <p class="text-sm font-medium text-gray-800" id="modalActivity">Chimpanzee Tracking</p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-semibold text-gray-500 uppercase mb-1">Amount</p>
+                        <p class="text-lg font-bold text-ezee-green" id="modalAmount">$90.00</p>
+                    </div>
+                </div>
+                <div class="mt-8 flex gap-3">
+                    <button onclick="openEditBooking()"
+                        class="flex-1 bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-lg hover:bg-gray-50 font-medium text-sm">Edit</button>
+                    <button
+                        class="flex-1 bg-ezee-green text-white px-4 py-2 rounded-lg hover:bg-ezee-dark font-medium text-sm">Contact
+                        Guest</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Booking Modal -->
+    <div id="addBookingModal"
+        class="fixed inset-0 bg-gray-900 bg-opacity-60 hidden z-50 flex items-center justify-center backdrop-blur-sm">
+        <div
+            class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 overflow-hidden transform transition-all scale-100">
+            <!-- Modal Header -->
+            <div class="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-bold text-gray-900">New Booking</h3>
+                <button onclick="closeAddBookingModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6">
+                <form class="space-y-4" onsubmit="event.preventDefault(); handleBookingSubmit();">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Guest
+                            Name</label>
+                        <input type="text" id="frm_guest"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green"
+                            placeholder="John Doe">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Activity</label>
+                            <select id="frm_activity"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green">
+                                <option>Chimpanzee Tracking</option>
+                                <option>Canopy Walk</option>
+                                <option>Nature Trail</option>
+                                <option>Boat Ride</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Payment
+                                Status</label>
+                            <select id="frm_status"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green font-medium">
+                                <option value="Pending" class="text-yellow-600">Pending</option>
+                                <option value="Paid" class="text-green-600">Paid</option>
+                                <option value="Cancelled" class="text-red-600">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Date</label>
+                            <input type="date" id="frm_date"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Time</label>
+                            <input type="time" id="frm_time"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green">
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Amount
+                            ($)</label>
+                        <input type="number" id="frm_amount"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green"
+                            placeholder="90.00">
+                    </div>
+
+                    <div class="mt-6 flex justify-end gap-3 pt-4 border-t border-gray-100">
+                        <button type="button" onclick="closeAddBookingModal()"
+                            class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium transition">Cancel</button>
+                        <button type="submit" id="btnSaveBooking"
+                            class="px-4 py-2 bg-ezee-green text-white rounded-lg hover:bg-ezee-dark text-sm font-medium transition shadow-sm">Create
+                            Booking</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                headerToolbar: {
+                    left: 'prev,next today',
+                    center: 'title',
+                    right: 'dayGridMonth,timeGridWeek,timeGridDay'
+                },
+                height: 'auto',
+                events: [
+                    {
+                        title: 'Chimpanzee Tracking - John Doe',
+                        start: '2026-02-24T09:00:00',
+                        backgroundColor: '#1A4D2E', // ezee-green
+                        borderColor: '#1A4D2E',
+                        extendedProps: {
+                            guest: 'John Doe',
+                            email: 'john@example.com',
+                            status: 'Confirmed',
+                            amount: '$90.00',
+                            activity: 'Chimpanzee Tracking'
+                        }
+                    },
+                    {
+                        title: 'Canopy Walk - Alice Smith',
+                        start: '2026-02-25T14:00:00',
+                        backgroundColor: '#FF9F1C', // ezee-gold
+                        borderColor: '#FF9F1C',
+                        extendedProps: {
+                            guest: 'Alice Smith',
+                            email: 'alice@test.com',
+                            status: 'Pending',
+                            amount: '$60.00',
+                            activity: 'Canopy Walk'
+                        }
+                    },
+                    {
+                        title: 'Nature Trail - Robert K.',
+                        start: '2026-02-26T10:00:00',
+                        backgroundColor: '#1A4D2E',
+                        borderColor: '#1A4D2E',
+                        extendedProps: {
+                            guest: 'Robert K.',
+                            email: 'rob@mail.com',
+                            status: 'Confirmed',
+                            amount: '$40.00',
+                            activity: 'Nature Trail'
+                        }
+                    },
+                    {
+                        title: 'Boat Ride - Groups',
+                        start: '2026-02-28',
+                        backgroundColor: '#4E342E', // ezee-brown
+                        borderColor: '#4E342E',
+                        extendedProps: {
+                            guest: 'Safari Kings Group',
+                            email: 'info@safarikings.com',
+                            status: 'Confirmed',
+                            amount: '$250.00',
+                            activity: 'Boat Ride'
+                        }
+                    }
+                ],
+                eventClick: function (info) {
+                    openModal(info.event);
+                }
+            });
+            calendar.render();
+        });
+
+        // Modal Logic
+        const modal = document.getElementById('bookingModal');
+        const modalGuest = document.getElementById('modalGuest');
+        const modalEmail = document.getElementById('modalEmail');
+        const modalDate = document.getElementById('modalDate');
+        const modalTime = document.getElementById('modalTime');
+        const modalActivity = document.getElementById('modalActivity');
+        const modalAmount = document.getElementById('modalAmount');
+        const modalStatus = document.getElementById('modalStatus');
+        let currentEvent = null; // Store currently opened event
+
+        function openModal(event) {
+            currentEvent = event;
+            // Populate Data
+            modalGuest.textContent = event.extendedProps.guest;
+            modalEmail.textContent = event.extendedProps.email;
+            modalActivity.textContent = event.extendedProps.activity;
+            modalAmount.textContent = event.extendedProps.amount;
+
+            // Format Date/Time
+            const start = event.start;
+            modalDate.textContent = start.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+            modalTime.textContent = start.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' });
+
+            // Status Styling
+            modalStatus.textContent = event.extendedProps.status;
+            if (event.extendedProps.status === 'Pending') {
+                modalStatus.className = "px-2 py-1 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold";
+            } else {
+                modalStatus.className = "px-2 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold";
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+        }
+
+        // Close on outside click
+        modal.addEventListener('click', function (e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Add Booking Modal Logic
+        const addModal = document.getElementById('addBookingModal');
+
+        function openAddBookingModal() {
+            addModal.classList.remove('hidden');
+        }
+
+        function closeAddBookingModal() {
+            addModal.classList.add('hidden');
+        }
+
+        addModal.addEventListener('click', function (e) {
+            if (e.target === addModal) {
+                closeAddBookingModal();
+            }
+        });
+
+        function openEditBooking() {
+            closeModal(); // Close details modal
+            openAddBookingModal(currentEvent); // Open edit modal with data
+        }
+
+        function handleBookingSubmit() {
+            const guest = document.getElementById('frm_guest').value;
+            const activity = document.getElementById('frm_activity').value;
+            const date = document.getElementById('frm_date').value;
+            const time = document.getElementById('frm_time').value;
+            const amount = document.getElementById('frm_amount').value;
+            const status = document.getElementById('frm_status').value;
+
+            // Determine Color based on Status
+            let color = '#1A4D2E'; // Default Paid/Green
+            if (status === 'Pending') color = '#FF9F1C';
+            else if (status === 'Cancelled') color = '#EF4444';
+
+            if (currentEvent) {
+                // Update Existing Event
+                currentEvent.setProp('title', `${activity} - ${guest}`);
+                currentEvent.setProp('start', `${date}T${time}`);
+                currentEvent.setProp('backgroundColor', color);
+                currentEvent.setProp('borderColor', color);
+
+                currentEvent.setExtendedProp('guest', guest);
+                currentEvent.setExtendedProp('activity', activity);
+                currentEvent.setExtendedProp('amount', `$${amount}`);
+                currentEvent.setExtendedProp('status', status);
+
+                alert('Booking Updated!');
+            } else {
+                // Create New Event (Mock)
+                alert('New Booking Created!');
+            }
+
+            closeAddBookingModal();
+        }
+
+        // Modified to accept optional event for editing
+        const originalOpenAddBooking = openAddBookingModal;
+        openAddBookingModal = function (eventToEdit = null) {
+            const title = document.querySelector('#addBookingModal h3');
+            const btn = document.getElementById('btnSaveBooking');
+
+            if (eventToEdit) {
+                // Edit Mode
+                currentEvent = eventToEdit;
+                title.textContent = "Edit Booking";
+                btn.textContent = "Update Booking";
+
+                // Pre-fill form
+                document.getElementById('frm_guest').value = eventToEdit.extendedProps.guest || '';
+                document.getElementById('frm_activity').value = eventToEdit.extendedProps.activity || 'Chimpanzee Tracking';
+
+                // Parse Date/Time from Event Start
+                const start = eventToEdit.start;
+                const dateStr = start.toISOString().split('T')[0];
+                const timeStr = start.toTimeString().split(' ')[0].substring(0, 5);
+
+                document.getElementById('frm_date').value = dateStr;
+                document.getElementById('frm_time').value = timeStr;
+
+                // Remove $ sign for number input
+                const amountStr = eventToEdit.extendedProps.amount || '0';
+                document.getElementById('frm_amount').value = parseFloat(amountStr.replace('$', ''));
+
+                document.getElementById('frm_status').value = eventToEdit.extendedProps.status || 'Pending';
+
+            } else {
+                // Add Mode
+                currentEvent = null;
+                title.textContent = "New Booking";
+                btn.textContent = "Create Booking";
+
+                // Clear form
+                document.getElementById('frm_guest').value = '';
+                document.getElementById('frm_amount').value = '';
+                document.getElementById('frm_date').value = '';
+                document.getElementById('frm_time').value = '';
+                document.getElementById('frm_status').value = 'Pending';
+            }
+
+            addModal.classList.remove('hidden');
+        }
+    </script>
+</body>
+
+</html>

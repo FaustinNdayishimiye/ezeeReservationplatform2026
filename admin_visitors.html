@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EzeeAdmin - Visitors</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ezee: {
+                            green: '#1A4D2E',
+                            dark: '#0F2C1B',
+                            brown: '#4E342E',
+                            gold: '#FF9F1C',
+                            light: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans text-gray-800 antialiased flex h-screen overflow-hidden pt-16">
+
+    <!-- Global Header -->
+    <header
+        class="fixed top-0 left-0 w-full h-16 bg-white border-b border-gray-200 z-50 flex items-center justify-between px-4">
+        <div class="flex items-center gap-6">
+            <button onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')"
+                class="md:hidden text-gray-500 hover:text-ezee-green">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <div class="flex items-center gap-3">
+                <div class="flex items-center">
+                    <span class="text-ezee-dark font-bold tracking-wider font-sans italic text-xl">eZee
+                        <span class="text-ezee-gold">Admin</span></span>
+                </div>
+                <button
+                    class="hidden md:flex bg-gray-100 hover:bg-gray-200 text-gray-500 w-6 h-6 rounded-full items-center justify-center transition">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+            </div>
+            <div class="hidden md:flex items-center bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5 gap-2">
+                <i class="fa-solid fa-stopwatch text-gray-400"></i>
+                <span class="text-sm font-medium text-blue-500">02:44:15</span>
+                <button class="text-gray-400 hover:text-blue-500">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </button>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <button class="text-gray-400 hover:text-gray-600 relative">
+                <i class="fa-solid fa-circle-question text-lg"></i>
+            </button>
+            <button class="text-gray-400 hover:text-gray-600 relative">
+                <i class="fa-regular fa-bell text-lg"></i>
+                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+            </button>
+            <button class="text-gray-400 hover:text-gray-600 relative">
+                <i class="fa-solid fa-gift text-lg"></i>
+            </button>
+            <button class="text-gray-400 hover:text-gray-600 relative border-l border-gray-200 pl-4">
+                <i class="fa-solid fa-border-all text-lg"></i>
+            </button>
+            <img src="https://ui-avatars.com/api/?name=Admin+User&background=1A4D2E&color=fff" alt="User"
+                class="h-8 w-8 rounded-full border border-gray-200 cursor-pointer">
+            <div
+                class="h-8 w-8 rounded bg-orange-400 flex items-center justify-center text-white font-bold text-sm cursor-pointer border border-gray-200">
+                K
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside
+        class="w-64 bg-white border-r border-gray-200 flex-shrink-0 flex flex-col transition-all duration-300 transform -translate-x-full md:translate-x-0 fixed md:fixed z-40 top-16 bottom-0 left-0 h-[calc(100vh-4rem)]"
+        id="sidebar">
+        <nav class="flex-1 overflow-y-auto py-4">
+            <ul class="space-y-1 px-3">
+                <li>
+                    <a href="admin_dashboard.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_bookings.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Bookings</span>
+                        <span class="ml-auto bg-ezee-gold text-white py-0.5 px-2 rounded-full text-xs">New</span>
+                    </a>
+                </li>
+                <li>
+                    <!-- Active State -->
+                    <a href="#"
+                        class="flex items-center px-4 py-3 bg-ezee-light text-ezee-green rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Visitors</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_tour_companies.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Tour Companies</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_analytics.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Analytics & Reports</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="px-4 mt-8 mb-4">
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Management</h3>
+            </div>
+            <ul class="space-y-1 px-3">
+                <li>
+                    <a href="admin_activities.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="font-medium">Activities Capacity</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_settings.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span class="font-medium">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="p-4 border-t border-gray-200">
+            <div class="flex items-center gap-3">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=1A4D2E&color=fff" alt="Admin"
+                    class="h-9 w-9 rounded-full">
+                <div>
+                    <p class="text-sm font-semibold text-gray-700">Admin User</p>
+                    <p class="text-xs text-gray-500">Park Manager</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 md:ml-64 h-full">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">Visitor Management</h1>
+                    <p class="text-gray-500 text-sm">View and manage detailed visitor profiles.</p>
+                </div>
+                <div class="flex items-center gap-4 mt-4 md:mt-0">
+                    <div class="relative">
+                        <input type="text" placeholder="Search visitors..."
+                            class="pl-10 pr-4 py-2 border border-gray-200 rounded-lg text-sm focus:outline-none focus:border-ezee-green focus:ring-1 focus:ring-ezee-green bg-white shadow-sm">
+                        <i class="fa-solid fa-search text-gray-400 absolute left-3 top-3 text-xs"></i>
+                    </div>
+                    <button onclick="openAddVisitorModal()"
+                        class="flex items-center bg-ezee-green text-white px-4 py-2 rounded-lg hover:bg-ezee-dark transition shadow-sm text-sm font-medium">
+                        <i class="fa-solid fa-user-plus mr-2"></i> Add Visitor
+                    </button>
+                </div>
+            </div>
+
+            <!-- Visitors Table -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider">
+                                <th class="px-6 py-4 font-semibold">Visitor Profile</th>
+                                <th class="px-6 py-4 font-semibold">Location</th>
+                                <th class="px-6 py-4 font-semibold">Passport / ID</th>
+                                <th class="px-6 py-4 font-semibold">Phone</th>
+                                <th class="px-6 py-4 font-semibold text-right">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-100 text-sm">
+                            <!-- Visitor 1 -->
+                            <tr class="hover:bg-gray-50 transition group">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        <img src="https://ui-avatars.com/api/?name=Sarah+Connor&background=random"
+                                            class="h-10 w-10 rounded-full mr-3 border border-gray-100">
+                                        <div>
+                                            <p class="font-bold text-gray-900">Sarah Connor</p>
+                                            <p class="text-xs text-gray-500">sarah.connor@example.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="text-gray-900 font-medium">USA</p>
+                                    <p class="text-xs text-gray-500">North America</p>
+                                </td>
+                                <td class="px-6 py-4 text-gray-600">A12345678</td>
+                                <td class="px-6 py-4 text-gray-600">+1 555-0199</td>
+                                <td class="px-6 py-4 text-right">
+                                    <button onclick="openProfile(1)"
+                                        class="text-gray-400 hover:text-ezee-green transition-colors w-8 h-8 rounded-full hover:bg-green-50 flex items-center justify-center">
+                                        <i class="fa-regular fa-eye text-lg"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <!-- Visitor 2 -->
+                            <tr class="hover:bg-gray-50 transition group">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        <img src="https://ui-avatars.com/api/?name=JC+Ndayisaba&background=random"
+                                            class="h-10 w-10 rounded-full mr-3 border border-gray-100">
+                                        <div>
+                                            <p class="font-bold text-gray-900">Jean Claude Ndayisaba</p>
+                                            <p class="text-xs text-gray-500">jc.ndayisaba@email.rw</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="text-gray-900 font-medium">Rwanda</p>
+                                    <p class="text-xs text-gray-500">Africa</p>
+                                </td>
+                                <td class="px-6 py-4 text-gray-600">PC11223344</td>
+                                <td class="px-6 py-4 text-gray-600">+250 788 123 456</td>
+                                <td class="px-6 py-4 text-right">
+                                    <button onclick="openProfile(2)"
+                                        class="text-gray-400 hover:text-ezee-green transition-colors w-8 h-8 rounded-full hover:bg-green-50 flex items-center justify-center">
+                                        <i class="fa-regular fa-eye text-lg"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                            <!-- Visitor 3 -->
+                            <tr class="hover:bg-gray-50 transition group">
+                                <td class="px-6 py-4">
+                                    <div class="flex items-center">
+                                        <img src="https://ui-avatars.com/api/?name=Michael+Ross&background=random"
+                                            class="h-10 w-10 rounded-full mr-3 border border-gray-100">
+                                        <div>
+                                            <p class="font-bold text-gray-900">Michael Ross</p>
+                                            <p class="text-xs text-gray-500">michael.ross@usa.com</p>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4">
+                                    <p class="text-gray-900 font-medium">USA</p>
+                                    <p class="text-xs text-gray-500">North America</p>
+                                </td>
+                                <td class="px-6 py-4 text-gray-600">US99887766</td>
+                                <td class="px-6 py-4 text-gray-600">+1 555-9876</td>
+                                <td class="px-6 py-4 text-right">
+                                    <button onclick="openProfile(3)"
+                                        class="text-gray-400 hover:text-ezee-green transition-colors w-8 h-8 rounded-full hover:bg-green-50 flex items-center justify-center">
+                                        <i class="fa-regular fa-eye text-lg"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- Pagination -->
+                <div class="px-6 py-4 border-t border-gray-200 flex justify-between items-center bg-gray-50">
+                    <p class="text-sm text-gray-500">Showing <span class="font-medium">1</span> to <span
+                            class="font-medium">3</span> of <span class="font-medium">248</span> visitors</p>
+                    <div class="flex gap-2">
+                        <button
+                            class="px-3 py-1 border border-gray-300 bg-white rounded text-sm text-gray-600 disabled:opacity-50">Previous</button>
+                        <button
+                            class="px-3 py-1 border border-gray-300 bg-white rounded text-sm text-gray-600 hover:bg-gray-50">Next</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Visitor Profile Modal (Refined) -->
+    <div id="profileModal"
+        class="fixed inset-0 bg-gray-900 bg-opacity-60 hidden z-50 flex items-center justify-center backdrop-blur-sm px-4">
+        <div
+            class="bg-white rounded-2xl shadow-2xl w-full max-w-2xl overflow-hidden transform transition-all scale-100 max-h-[90vh] flex flex-col">
+            <!-- Modal Header -->
+            <div class="bg-white border-b border-gray-100 p-6 flex items-start justify-between relative shrink-0">
+                <div class="flex items-center gap-5">
+                    <img id="m_photo" src=""
+                        class="h-20 w-20 rounded-full border border-gray-200 shadow-sm object-cover">
+                    <div>
+                        <h2 class="text-2xl font-bold text-gray-900 leading-tight" id="m_name">Visitor Name</h2>
+                        <div class="flex items-center gap-2 mt-1">
+                            <span class="text-gray-500 text-sm" id="m_email">email@example.com</span>
+                            <span class="text-gray-300">•</span>
+                            <span
+                                class="text-ezee-green text-xs font-bold bg-green-50 px-2 py-0.5 rounded-full border border-green-100">Active
+                                Visitor</span>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="closeProfile()"
+                    class="text-gray-400 hover:text-gray-600 w-8 h-8 flex items-center justify-center rounded-full hover:bg-gray-100 transition">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body (Scrollable) -->
+            <div class="p-8 overflow-y-auto custom-scrollbar">
+
+                <!-- Section 1: Personal & Location (2-Col) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 mb-10">
+                    <div>
+                        <h3
+                            class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">
+                            Contact & Identity</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-0.5">Phone Number</label>
+                                <p class="text-sm font-semibold text-gray-900" id="m_phone">-</p>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-0.5">Passport / ID</label>
+                                <p class="text-sm font-semibold text-gray-900 font-mono" id="m_passport">-</p>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-0.5">Preferred Language</label>
+                                <p class="text-sm font-semibold text-gray-900" id="m_language">-</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3
+                            class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4 border-b border-gray-100 pb-2">
+                            Location</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-0.5">Nationality</label>
+                                <p class="text-sm font-semibold text-gray-900" id="m_nationality">-</p>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-0.5">Residence</label>
+                                <div class="flex items-center gap-2">
+                                    <i class="fa-solid fa-location-dot text-gray-300 text-xs"></i>
+                                    <p class="text-sm font-semibold text-gray-900" id="m_country">-</p>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-0.5">Region</label>
+                                <p class="text-sm font-semibold text-gray-900" id="m_continent">-</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 2: Travel Context (Gray Card) -->
+                <div class="bg-gray-50 rounded-xl p-5 border border-gray-100 mb-10">
+                    <h3 class="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4 flex items-center gap-2">
+                        <i class="fa-solid fa-briefcase text-gray-400"></i> Agency Information
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div class="md:col-span-2">
+                            <label class="block text-xs text-gray-500 mb-1">Company</label>
+                            <p class="text-sm font-bold text-gray-900" id="m_agency_name">-</p>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label class="block text-xs text-gray-500 mb-1">Package ID</label>
+                            <p class="text-sm font-mono text-gray-600 bg-white px-2 py-1 rounded border border-gray-200 inline-block"
+                                id="m_group_id">-</p>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">Agent</label>
+                            <p class="text-sm font-medium text-gray-900" id="m_agent_name">-</p>
+                        </div>
+                        <div>
+                            <label class="block text-xs text-gray-500 mb-1">Contact</label>
+                            <p class="text-sm font-medium text-gray-900" id="m_agent_contact">-</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Section 3: Value Add (Preferences + Comms) -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Interests</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-1.5">Favorite Activities</label>
+                                <div class="flex flex-wrap gap-2" id="m_activities"></div>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-1.5">Skill Level</label>
+                                <span id="m_difficulty" class="px-2.5 py-1 rounded text-xs font-bold border">-</span>
+                            </div>
+                            <div>
+                                <label class="block text-xs text-gray-500 mb-0.5">Wildlife Focus</label>
+                                <p class="text-sm font-medium text-gray-900 italic" id="m_wildlife">-</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">Communication</h3>
+                        <div class="space-y-4">
+                            <div class="flex items-center justify-between p-3 border border-gray-100 rounded-lg">
+                                <span class="text-sm font-medium text-gray-700">Notifications</span>
+                                <div class="w-8 h-4 bg-ezee-green rounded-full relative opacity-90">
+                                    <div class="absolute right-0.5 top-0.5 w-3 h-3 bg-white rounded-full shadow-sm">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="flex items-center gap-3 p-3 border border-gray-100 rounded-lg"
+                                id="m_marketing_container">
+                                <!-- JS Injected -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Modal Footer (Fixed) -->
+            <div class="p-4 border-t border-gray-100 bg-gray-50 flex justify-between shrink-0">
+                <button class="text-gray-500 hover:text-gray-700 font-medium text-sm px-4 py-2">
+                    <i class="fa-solid fa-print mr-2"></i> Print Profile
+                </button>
+                <div class="flex gap-3">
+                    <button
+                        class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-white font-medium text-sm transition">History</button>
+                    <button
+                        class="px-5 py-2 bg-ezee-green text-white rounded-lg hover:bg-ezee-dark font-medium text-sm shadow-sm transition">Edit
+                        Profile</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Visitor Modal -->
+    <div id="addVisitorModal"
+        class="fixed inset-0 bg-gray-900 bg-opacity-60 hidden z-50 flex items-center justify-center backdrop-blur-sm">
+        <div
+            class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 overflow-hidden transform transition-all scale-100">
+            <!-- Modal Header -->
+            <div class="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-bold text-gray-900">Add New Visitor</h3>
+                <button onclick="closeAddVisitorModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6">
+                <form class="space-y-4"
+                    onsubmit="event.preventDefault(); closeAddVisitorModal(); alert('Visitor Added (Mock)!');">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Full
+                            Name</label>
+                        <input type="text"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green"
+                            placeholder="e.g. Jean Doe">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Email</label>
+                            <input type="email"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green"
+                                placeholder="email@example.com">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Phone</label>
+                            <input type="tel"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green"
+                                placeholder="+250 ...">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Nationality</label>
+                            <input type="text"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green"
+                                placeholder="e.g. Rwandan">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Passport
+                                No.</label>
+                            <input type="text"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green">
+                        </div>
+                    </div>
+
+                    <div class="mt-6 flex justify-end gap-3 pt-4 border-t border-gray-100">
+                        <button type="button" onclick="closeAddVisitorModal()"
+                            class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium transition">Cancel</button>
+                        <button type="submit"
+                            class="px-4 py-2 bg-ezee-green text-white rounded-lg hover:bg-ezee-dark text-sm font-medium transition shadow-sm">Save
+                            Visitor</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Visitor Modal -->
+    <div id="addVisitorModal"
+        class="fixed inset-0 bg-gray-900 bg-opacity-60 hidden z-50 flex items-center justify-center backdrop-blur-sm">
+        <div
+            class="bg-white rounded-2xl shadow-2xl w-full max-w-lg mx-4 overflow-hidden transform transition-all scale-100">
+            <!-- Modal Header -->
+            <div class="bg-gray-50 px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+                <h3 class="text-lg font-bold text-gray-900">Add New Visitor</h3>
+                <button onclick="closeAddVisitorModal()" class="text-gray-400 hover:text-gray-600">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
+            </div>
+
+            <!-- Modal Body -->
+            <div class="p-6">
+                <form class="space-y-4"
+                    onsubmit="event.preventDefault(); closeAddVisitorModal(); alert('Visitor Added (Mock)!');">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Full
+                            Name</label>
+                        <input type="text"
+                            class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green"
+                            placeholder="e.g. Jean Doe">
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Email</label>
+                            <input type="email"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green"
+                                placeholder="email@example.com">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Phone</label>
+                            <input type="tel"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green"
+                                placeholder="+250 ...">
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label
+                                class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Nationality</label>
+                            <input type="text"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green"
+                                placeholder="e.g. Rwandan">
+                        </div>
+                        <div>
+                            <label
+                                class="block text-xs font-semibold text-gray-700 uppercase tracking-wider mb-1">Passport
+                                No.</label>
+                            <input type="text"
+                                class="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:border-ezee-green">
+                        </div>
+                    </div>
+
+                    <div class="mt-6 flex justify-end gap-3 pt-4 border-t border-gray-100">
+                        <button type="button" onclick="closeAddVisitorModal()"
+                            class="px-4 py-2 border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 text-sm font-medium transition">Cancel</button>
+                        <button type="submit"
+                            class="px-4 py-2 bg-ezee-green text-white rounded-lg hover:bg-ezee-dark text-sm font-medium transition shadow-sm">Save
+                            Visitor</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const visitors = {
+            1: {
+                name: "Sarah Connor",
+                email: "sarah.connor@example.com",
+                photo: "https://ui-avatars.com/api/?name=Sarah+Connor&background=random&size=128",
+                phone: "+1 555-0199",
+                passport: "A12345678",
+                nationality: "American",
+                language: "English",
+                country: "United States",
+                continent: "North America",
+                agency_name: "Liberty Tours",
+                group_id: "US-GRP-001",
+                agent_name: "Kyle Reese",
+                agent_contact: "+1 555-1010",
+                // Preferences
+                activities: ["Hiking", "Game Drives"],
+                difficulty: "Moderate",
+                wildlife: "Big Cats, Elephants",
+                marketing: true
+            },
+            2: {
+                name: "Jean Claude Ndayisaba",
+                email: "jc.ndayisaba@email.rw",
+                photo: "https://ui-avatars.com/api/?name=JC+Ndayisaba&background=random&size=128",
+                phone: "+250 788 123 456",
+                passport: "PC11223344",
+                nationality: "Rwandan",
+                language: "Kinyarwanda, English, French",
+                country: "Rwanda",
+                continent: "Africa",
+                agency_name: "Rwanda Tours",
+                group_id: "RW-GRP-005",
+                agent_name: "Self",
+                agent_contact: "-",
+                // Preferences
+                activities: ["Canopy Walk", "Nature Trails"],
+                difficulty: "Easy",
+                wildlife: "Primates, Birds",
+                marketing: false
+            },
+            3: {
+                name: "Michael Ross",
+                email: "michael.ross@usa.com",
+                photo: "https://ui-avatars.com/api/?name=Michael+Ross&background=random&size=128",
+                phone: "+1 555-9876",
+                passport: "US99887766",
+                nationality: "American",
+                language: "English",
+                country: "United States",
+                continent: "North America",
+                agency_name: "Global Adventures",
+                group_id: "US-PKG-022",
+                agent_name: "Jessica Pearson",
+                agent_contact: "+1 555-2020",
+                // Preferences
+                activities: ["Chimpanzee Tracking", "Hiking"],
+                difficulty: "Hard",
+                wildlife: "General",
+                marketing: true
+            }
+        };
+
+        const modal = document.getElementById('profileModal');
+
+        function openProfile(id) {
+            const data = visitors[id];
+            if (!data) return;
+
+            document.getElementById('m_photo').src = data.photo;
+            document.getElementById('m_name').innerText = data.name;
+            document.getElementById('m_email').innerText = data.email;
+            document.getElementById('m_phone').innerText = data.phone;
+            document.getElementById('m_passport').innerText = data.passport;
+            document.getElementById('m_nationality').innerText = data.nationality;
+            document.getElementById('m_language').innerText = data.language;
+            document.getElementById('m_country').innerText = data.country;
+            document.getElementById('m_continent').innerText = data.continent;
+
+            document.getElementById('m_agency_name').innerText = data.agency_name;
+            document.getElementById('m_group_id').innerText = data.group_id;
+            document.getElementById('m_agent_name').innerText = data.agent_name;
+            document.getElementById('m_agent_contact').innerText = data.agent_contact;
+
+            // Populate Preferences
+            const actsContainer = document.getElementById('m_activities');
+            actsContainer.innerHTML = ''; // Clear previous
+            data.activities.forEach(act => {
+                const tag = document.createElement('span');
+                tag.className = 'px-2 py-1 bg-gray-100 text-gray-600 rounded text-xs font-medium border border-gray-200';
+                tag.innerText = act;
+                actsContainer.appendChild(tag);
+            });
+
+            const diffEl = document.getElementById('m_difficulty');
+            diffEl.innerText = data.difficulty;
+            // difficulty color coding
+            if (data.difficulty === 'Easy') {
+                diffEl.className = 'px-2.5 py-1 rounded-md text-xs font-bold border bg-green-50 text-green-700 border-green-200';
+            } else if (data.difficulty === 'Moderate') {
+                diffEl.className = 'px-2.5 py-1 rounded-md text-xs font-bold border bg-yellow-50 text-yellow-700 border-yellow-200';
+            } else {
+                diffEl.className = 'px-2.5 py-1 rounded-md text-xs font-bold border bg-red-50 text-red-700 border-red-200';
+            }
+
+            document.getElementById('m_wildlife').innerText = data.wildlife;
+
+            // Marketing
+            const mktContainer = document.getElementById('m_marketing_container');
+            if (data.marketing) {
+                mktContainer.innerHTML = '<i class="fa-solid fa-check-circle text-green-500"></i><span class="text-sm font-medium text-gray-700">Marketing Opt-in</span>';
+            } else {
+                mktContainer.innerHTML = '<i class="fa-solid fa-times-circle text-gray-400"></i><span class="text-sm font-medium text-gray-400">Marketing Opt-out</span>';
+            }
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeProfile() {
+            modal.classList.add('hidden');
+        }
+
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) closeProfile();
+        });
+
+        // Add Visitor Modal Logic
+        const addVisitorModal = document.getElementById('addVisitorModal');
+
+        function openAddVisitorModal() {
+            addVisitorModal.classList.remove('hidden');
+        }
+
+        function closeAddVisitorModal() {
+            addVisitorModal.classList.add('hidden');
+        }
+
+        addVisitorModal.addEventListener('click', function (e) {
+            if (e.target === addVisitorModal) {
+                closeAddVisitorModal();
+            }
+        });
+    </script>
+</body>
+
+</html>

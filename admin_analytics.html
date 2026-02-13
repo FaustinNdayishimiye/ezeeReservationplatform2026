@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EzeeAdmin - Analytics & Reports</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Flatpickr -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ezee: {
+                            green: '#1A4D2E',
+                            dark: '#0F2C1B',
+                            brown: '#4E342E',
+                            gold: '#FF9F1C',
+                            light: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans text-gray-800 antialiased flex h-screen overflow-hidden pt-16">
+
+    <!-- Global Header -->
+    <header
+        class="fixed top-0 left-0 w-full h-16 bg-white border-b border-gray-200 z-50 flex items-center justify-between px-4">
+        <div class="flex items-center gap-6">
+            <button onclick="document.getElementById('sidebar').classList.toggle('-translate-x-full')"
+                class="md:hidden text-gray-500 hover:text-ezee-green">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <div class="flex items-center gap-3">
+                <div class="flex items-center">
+                    <span class="text-ezee-dark font-bold tracking-wider font-sans italic text-xl">eZee
+                        <span class="text-ezee-gold">Admin</span></span>
+                </div>
+                <button
+                    class="hidden md:flex bg-gray-100 hover:bg-gray-200 text-gray-500 w-6 h-6 rounded-full items-center justify-center transition">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+            </div>
+            <div class="hidden md:flex items-center bg-gray-50 border border-gray-200 rounded-full px-3 py-1.5 gap-2">
+                <i class="fa-solid fa-stopwatch text-gray-400"></i>
+                <span class="text-sm font-medium text-blue-500">02:44:15</span>
+                <button class="text-gray-400 hover:text-blue-500">
+                    <i class="fa-solid fa-arrow-up-right-from-square text-xs"></i>
+                </button>
+            </div>
+        </div>
+        <div class="flex items-center gap-4">
+            <button class="text-gray-400 hover:text-gray-600 relative">
+                <i class="fa-solid fa-circle-question text-lg"></i>
+            </button>
+            <button class="text-gray-400 hover:text-gray-600 relative">
+                <i class="fa-regular fa-bell text-lg"></i>
+                <span class="absolute top-0 right-0 block h-2 w-2 rounded-full bg-red-500 ring-2 ring-white"></span>
+            </button>
+            <button class="text-gray-400 hover:text-gray-600 relative">
+                <i class="fa-solid fa-gift text-lg"></i>
+            </button>
+            <button class="text-gray-400 hover:text-gray-600 relative border-l border-gray-200 pl-4">
+                <i class="fa-solid fa-border-all text-lg"></i>
+            </button>
+            <img src="https://ui-avatars.com/api/?name=Admin+User&background=1A4D2E&color=fff" alt="User"
+                class="h-8 w-8 rounded-full border border-gray-200 cursor-pointer">
+            <div
+                class="h-8 w-8 rounded bg-orange-400 flex items-center justify-center text-white font-bold text-sm cursor-pointer border border-gray-200">
+                K
+            </div>
+        </div>
+    </header>
+
+    <!-- Sidebar -->
+    <aside
+        class="w-64 bg-white border-r border-gray-200 flex-shrink-0 flex flex-col transition-all duration-300 transform -translate-x-full md:translate-x-0 fixed md:fixed z-40 top-16 bottom-0 left-0 h-[calc(100vh-4rem)]"
+        id="sidebar">
+        <nav class="flex-1 overflow-y-auto py-4">
+            <ul class="space-y-1 px-3">
+                <li>
+                    <a href="admin_dashboard.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Dashboard</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_bookings.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Bookings</span>
+                        <span class="ml-auto bg-ezee-gold text-white py-0.5 px-2 rounded-full text-xs">New</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_visitors.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Visitors</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_tour_companies.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Tour Companies</span>
+                    </a>
+                </li>
+                <li>
+                    <!-- Active State -->
+                    <a href="#"
+                        class="flex items-center px-4 py-3 bg-ezee-light text-ezee-green rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z">
+                            </path>
+                        </svg>
+                        <span class="font-medium">Analytics & Reports</span>
+                    </a>
+                </li>
+            </ul>
+
+            <div class="px-4 mt-8 mb-4">
+                <h3 class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Management</h3>
+            </div>
+            <ul class="space-y-1 px-3">
+                <li>
+                    <a href="admin_activities.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span class="font-medium">Activities Capacity</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="admin_settings.html"
+                        class="flex items-center px-4 py-3 text-gray-600 hover:bg-gray-50 hover:text-ezee-dark rounded-lg group transition-colors">
+                        <svg class="w-5 h-5 mr-3 group-hover:text-ezee-green transition-colors" fill="none"
+                            stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z">
+                            </path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                        </svg>
+                        <span class="font-medium">Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+        <div class="p-4 border-t border-gray-200">
+            <div class="flex items-center gap-3">
+                <img src="https://ui-avatars.com/api/?name=Admin+User&background=1A4D2E&color=fff" alt="Admin"
+                    class="h-9 w-9 rounded-full">
+                <div>
+                    <p class="text-sm font-semibold text-gray-700">Admin User</p>
+                    <p class="text-xs text-gray-500">Park Manager</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 md:ml-64 h-full">
+        <div class="max-w-7xl mx-auto px-6 py-8">
+
+            <!-- Title & Filters -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between mb-8">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900">Analytics & Reports</h1>
+                    <p class="text-gray-500 text-sm">Key park metrics and generated reports.</p>
+                </div>
+                <div
+                    class="flex flex-wrap justify-center items-center gap-2 mt-4 md:mt-0 bg-white p-1.5 rounded-lg border border-gray-200 shadow-sm">
+                    <button onclick="setActiveFilter(this, 'daily')"
+                        class="px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 rounded-md filter-btn">Daily</button>
+                    <button onclick="setActiveFilter(this, 'weekly')"
+                        class="px-3 py-1.5 text-xs font-medium text-gray-600 hover:bg-gray-50 rounded-md filter-btn">Weekly</button>
+                    <button onclick="setActiveFilter(this, 'monthly')"
+                        class="px-3 py-1.5 text-xs font-medium text-white bg-ezee-green rounded-md shadow-sm filter-btn">Monthly</button>
+                    <div class="h-4 w-px bg-gray-300 mx-1"></div>
+                    <button id="dateRangePicker"
+                        class="px-2 py-1.5 text-gray-600 hover:text-ezee-dark transition-colors relative"
+                        title="Select Date Range">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </button>
+                </div>
+            </div>
+
+            <script>
+                // Initialize Flatpickr
+                flatpickr("#dateRangePicker", {
+                    mode: "range",
+                    dateFormat: "Y-m-d",
+                    onClose: function (selectedDates, dateStr, instance) {
+                        if (selectedDates.length > 0) {
+                            // Highlight Calendar Icon
+                            document.getElementById('dateRangePicker').classList.add('text-ezee-green', 'font-bold');
+                            // Deselect other buttons
+                            document.querySelectorAll('.filter-btn').forEach(btn => {
+                                btn.classList.remove('bg-ezee-green', 'text-white', 'shadow-sm');
+                                btn.classList.add('text-gray-600', 'hover:bg-gray-50');
+                            });
+                            console.log("Date Range Selected:", dateStr);
+                        }
+                    }
+                });
+
+                function setActiveFilter(btn, type) {
+                    // Reset all buttons
+                    document.querySelectorAll('.filter-btn').forEach(b => {
+                        b.classList.remove('bg-ezee-green', 'text-white', 'shadow-sm');
+                        b.classList.add('text-gray-600', 'hover:bg-gray-50');
+                    });
+                    // Activate clicked button
+                    btn.classList.remove('text-gray-600', 'hover:bg-gray-50');
+                    btn.classList.add('bg-ezee-green', 'text-white', 'shadow-sm');
+
+                    // Reset Calendar Icon
+                    document.getElementById('dateRangePicker').classList.remove('text-ezee-green', 'font-bold');
+                    document.getElementById('dateRangePicker').classList.add('text-gray-600');
+                }
+            </script>
+
+            <!-- KPI Cards -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Revenue -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-green-100 p-3 rounded-lg text-green-600">
+                            <i class="fa-solid fa-sack-dollar text-xl"></i>
+                        </div>
+                        <span class="text-xs font-bold text-green-600 bg-green-50 px-2 py-1 rounded-full">+12.5%</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-1">Total Revenue</p>
+                    <h3 class="text-2xl font-bold text-gray-900">$48,250</h3>
+                </div>
+
+                <!-- Visitors -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-blue-100 p-3 rounded-lg text-blue-600">
+                            <i class="fa-solid fa-users text-xl"></i>
+                        </div>
+                        <span class="text-xs font-bold text-blue-600 bg-blue-50 px-2 py-1 rounded-full">+8.2%</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-1">Total Visitors</p>
+                    <h3 class="text-2xl font-bold text-gray-900">1,245</h3>
+                </div>
+
+                <!-- Active Partners -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-orange-100 p-3 rounded-lg text-orange-600">
+                            <i class="fa-solid fa-handshake text-xl"></i>
+                        </div>
+                        <span class="text-xs font-bold text-gray-500 bg-gray-50 px-2 py-1 rounded-full">Active</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-1">Tour Partners</p>
+                    <h3 class="text-2xl font-bold text-gray-900">18</h3>
+                </div>
+
+                <!-- Occupancy -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <div class="flex items-center justify-between mb-4">
+                        <div class="bg-purple-100 p-3 rounded-lg text-purple-600">
+                            <i class="fa-solid fa-ticket text-xl"></i>
+                        </div>
+                        <span class="text-xs font-bold text-red-600 bg-red-50 px-2 py-1 rounded-full">-2.1%</span>
+                    </div>
+                    <p class="text-gray-500 text-sm mb-1">Capacity / Occupancy</p>
+                    <h3 class="text-2xl font-bold text-gray-900">76%</h3>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
+                <!-- Revenue Trend -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200 col-span-1 lg:col-span-2">
+                    <h3 class="font-bold text-gray-900 mb-6">Revenue Overview</h3>
+                    <div class="h-72">
+                        <canvas id="revenueChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Demographics -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="font-bold text-gray-900 mb-6">Visitor Demographics</h3>
+                    <div class="h-64 flex justify-center">
+                        <canvas id="demographicsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Partner Performance -->
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200">
+                    <h3 class="font-bold text-gray-900 mb-6">Top Tour Companies</h3>
+                    <div class="h-64">
+                        <canvas id="partnerChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reports Center -->
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
+                <div
+                    class="px-6 py-4 border-b border-gray-200 bg-gray-50 flex flex-col sm:flex-row justify-between items-center gap-4">
+                    <h3 class="font-bold text-gray-900">Reports Center</h3>
+                    <div class="flex items-center gap-2 bg-gray-200 p-1 rounded-lg">
+                        <button onclick="filterReports('all')" id="tab-all"
+                            class="px-3 py-1 text-xs font-medium rounded-md bg-white text-gray-800 shadow-sm transition-all filter-tab">All</button>
+                        <button onclick="filterReports('daily')" id="tab-daily"
+                            class="px-3 py-1 text-xs font-medium rounded-md text-gray-600 hover:bg-gray-100 transition-all filter-tab">Daily</button>
+                        <button onclick="filterReports('weekly')" id="tab-weekly"
+                            class="px-3 py-1 text-xs font-medium rounded-md text-gray-600 hover:bg-gray-100 transition-all filter-tab">Weekly</button>
+                        <button onclick="filterReports('monthly')" id="tab-monthly"
+                            class="px-3 py-1 text-xs font-medium rounded-md text-gray-600 hover:bg-gray-100 transition-all filter-tab">Monthly</button>
+                        <div class="h-4 w-px bg-gray-300 mx-1"></div>
+                        <input type="text" id="reportDateRange" placeholder="Filter by Date"
+                            class="px-2 py-1 text-xs rounded-md border-none focus:ring-0 bg-transparent w-24 placeholder-gray-500 cursor-pointer">
+                    </div>
+                </div>
+                <div class="divide-y divide-gray-100" id="reports-list">
+                    <!-- Daily Reports -->
+                    <div class="p-4 flex items-center justify-between hover:bg-gray-50 transition report-item"
+                        data-category="daily">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="h-10 w-10 bg-green-50 text-green-600 rounded-lg flex items-center justify-center">
+                                <i class="fa-solid fa-clipboard-check text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-900">Daily Occupancy Log</h4>
+                                <p class="text-xs text-gray-500">Visitor check-ins and capacity usage.</p>
+                            </div>
+                        </div>
+                        <button class="text-gray-500 hover:text-ezee-dark p-2 rounded-full hover:bg-gray-100">
+                            <i class="fa-solid fa-download"></i>
+                        </button>
+                    </div>
+
+                    <!-- Weekly Reports -->
+                    <div class="p-4 flex items-center justify-between hover:bg-gray-50 transition report-item"
+                        data-category="weekly">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="h-10 w-10 bg-purple-50 text-purple-600 rounded-lg flex items-center justify-center">
+                                <i class="fa-solid fa-chart-line text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-900">Weekly Revenue Summary</h4>
+                                <p class="text-xs text-gray-500">Income vs expenses for the week.</p>
+                            </div>
+                        </div>
+                        <button class="text-gray-500 hover:text-ezee-dark p-2 rounded-full hover:bg-gray-100">
+                            <i class="fa-solid fa-download"></i>
+                        </button>
+                    </div>
+
+                    <!-- Monthly Reports -->
+                    <div class="p-4 flex items-center justify-between hover:bg-gray-50 transition report-item"
+                        data-category="monthly">
+                        <div class="flex items-center gap-4">
+                            <div class="h-10 w-10 bg-red-50 text-red-600 rounded-lg flex items-center justify-center">
+                                <i class="fa-solid fa-file-invoice-dollar text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-900">Monthly Financial Statement</h4>
+                                <p class="text-xs text-gray-500">Revenue, consolidated refunds, and tax.</p>
+                            </div>
+                        </div>
+                        <button class="text-gray-500 hover:text-ezee-dark p-2 rounded-full hover:bg-gray-100">
+                            <i class="fa-solid fa-download"></i>
+                        </button>
+                    </div>
+
+                    <!-- Another Monthly Report -->
+                    <div class="p-4 flex items-center justify-between hover:bg-gray-50 transition report-item"
+                        data-category="monthly">
+                        <div class="flex items-center gap-4">
+                            <div class="h-10 w-10 bg-blue-50 text-blue-600 rounded-lg flex items-center justify-center">
+                                <i class="fa-solid fa-people-group text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-900">Visitor Demographics Report</h4>
+                                <p class="text-xs text-gray-500">Monthly nationality and age breakdown.</p>
+                            </div>
+                        </div>
+                        <button class="text-gray-500 hover:text-ezee-dark p-2 rounded-full hover:bg-gray-100">
+                            <i class="fa-solid fa-download"></i>
+                        </button>
+                    </div>
+
+                    <!-- Another Weekly Report -->
+                    <div class="p-4 flex items-center justify-between hover:bg-gray-50 transition report-item"
+                        data-category="weekly">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="h-10 w-10 bg-orange-50 text-orange-600 rounded-lg flex items-center justify-center">
+                                <i class="fa-solid fa-briefcase text-lg"></i>
+                            </div>
+                            <div>
+                                <h4 class="text-sm font-bold text-gray-900">Partner Performance Review</h4>
+                                <p class="text-xs text-gray-500">Weekly bookings by agency.</p>
+                            </div>
+                        </div>
+                        <button class="text-gray-500 hover:text-ezee-dark p-2 rounded-full hover:bg-gray-100">
+                            <i class="fa-solid fa-download"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <script>
+
+                // Initialize Report Date Range Picker
+                const reportPicker = flatpickr("#reportDateRange", {
+                    mode: "range",
+                    dateFormat: "Y-m-d",
+                    onChange: function (selectedDates, dateStr, instance) {
+                        if (selectedDates.length > 0) {
+                            // Deselect all tabs
+                            document.querySelectorAll('.filter-tab').forEach(btn => {
+                                btn.classList.remove('bg-white', 'text-gray-800', 'shadow-sm');
+                                btn.classList.add('text-gray-600', 'hover:bg-gray-100');
+                            });
+                            // Show all items (mock filter)
+                            const items = document.querySelectorAll('.report-item');
+                            items.forEach(item => {
+                                item.classList.remove('hidden');
+                                item.classList.add('flex');
+                            });
+                            console.log("Filtering reports by date range:", dateStr);
+                        }
+                    }
+                });
+
+                function filterReports(category) {
+                    // Clear Date Picker
+                    reportPicker.clear();
+
+                    // Update Tabs
+                    document.querySelectorAll('.filter-tab').forEach(btn => {
+                        if (btn.id === 'tab-' + category) {
+                            btn.classList.add('bg-white', 'text-gray-800', 'shadow-sm');
+                            btn.classList.remove('text-gray-600', 'hover:bg-gray-100');
+                        } else {
+                            btn.classList.remove('bg-white', 'text-gray-800', 'shadow-sm');
+                            btn.classList.add('text-gray-600', 'hover:bg-gray-100');
+                        }
+                    });
+
+                    // Filter List
+                    const items = document.querySelectorAll('.report-item');
+                    items.forEach(item => {
+                        if (category === 'all' || item.dataset.category === category) {
+                            item.classList.remove('hidden');
+                            item.classList.add('flex');
+                        } else {
+                            item.classList.add('hidden');
+                            item.classList.remove('flex');
+                        }
+                    });
+                }
+            </script>
+
+        </div>
+    </main>
+
+    <script>
+        // Chart Defaults
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.color = '#6b7280';
+
+        // 1. Revenue Chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'line',
+            data: {
+                labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                datasets: [{
+                    label: 'Revenue ($)',
+                    data: [4200, 3800, 5100, 4800, 7200, 8500, 6900],
+                    borderColor: '#1A4D2E',
+                    backgroundColor: 'rgba(26, 77, 46, 0.1)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true, grid: { borderDash: [2, 2] } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+
+        // 2. Demographics Chart
+        const demoCtx = document.getElementById('demographicsChart').getContext('2d');
+        new Chart(demoCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['North America', 'Europe', 'Asia', 'Local (EAC)'],
+                datasets: [{
+                    data: [35, 30, 15, 20],
+                    backgroundColor: ['#1A4D2E', '#FF9F1C', '#4B5563', '#9CA3AF'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { position: 'right' }
+                }
+            }
+        });
+
+        // 3. Partner Chart
+        const partnerCtx = document.getElementById('partnerChart').getContext('2d');
+        new Chart(partnerCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Liberty Tours', 'Tokyo Travels', 'Safari Kings', 'EuroVentures', 'Local Guides'],
+                datasets: [{
+                    label: 'Bookings',
+                    data: [85, 62, 45, 30, 25],
+                    backgroundColor: '#FF9F1C',
+                    borderRadius: 4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: { beginAtZero: true, grid: { display: false } },
+                    x: { grid: { display: false } }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

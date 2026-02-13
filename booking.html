@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Adventure - Ezee Reservation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ezee: {
+                            green: '#1A4D2E',
+                            dark: '#0F2C1B',
+                            brown: '#4E342E',
+                            gold: '#FF9F1C',
+                            light: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Custom styles replacing @apply */
+        .form-input {
+            width: 100%;
+            border: 1px solid #d1d5db;
+            /* gray-300 */
+            border-radius: 0.5rem;
+            /* rounded-lg */
+            padding: 0.75rem 1rem;
+            /* px-4 py-3 */
+            transition: all 200ms;
+        }
+
+        .form-input:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px #1A4D2E;
+            /* ring-2 ring-ezee-green */
+            border-color: transparent;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.875rem;
+            /* text-sm */
+            font-weight: 700;
+            /* font-bold */
+            color: #374151;
+            /* text-gray-700 */
+            margin-bottom: 0.5rem;
+            /* mb-2 */
+        }
+
+        /* Custom Logo Text Size */
+        .logo-text {
+            font-size: 13px !important;
+            /* Smaller precise size */
+        }
+    </style>
+</head>
+
+<body class="bg-ezee-light font-sans text-gray-800 antialiased">
+
+    <!-- Navigation (Simplified) -->
+    <nav class="bg-white shadow-md">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <a href="index.html" class="flex-shrink-0 flex items-center flex-col group">
+                    <img src="./logo.png" alt="Ezee Reservation"
+                        class="h-16 w-auto mb-1 group-hover:opacity-90 transition">
+                    <span class="logo-text text-ezee-dark font-bold tracking-wider font-sans italic">eZee <span
+                            class="text-ezee-gold">Reservation</span></span>
+                </a>
+                <div>
+                    <a href="index.html"
+                        class="text-ezee-dark hover:text-ezee-gold px-3 py-2 rounded-md text-sm font-medium transition flex items-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Back to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div
+        class="min-h-screen py-12 px-4 sm:px-6 lg:px-8 bg-[url('./NyungweBackground.webp')] bg-cover bg-center bg-fixed bg-no-repeat relative">
+        <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+
+        <div class="max-w-3xl mx-auto relative z-10">
+            <div class="glass-panel rounded-2xl shadow-2xl overflow-hidden">
+                <div class="bg-ezee-green py-6 px-8">
+                    <h1 class="text-3xl font-bold text-white text-center">Reserve Your Experience</h1>
+                    <p class="text-green-100 text-center mt-2">Complete the form below to secure your booking.</p>
+                </div>
+
+                <form class="py-8 px-8 space-y-8">
+
+                    <!-- Section 1: Trip Details -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-ezee-dark border-b border-gray-200 pb-2">Trip Details</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Activity Selector -->
+                            <div class="md:col-span-2">
+                                <label for="activity" class="form-label">Select Activity</label>
+                                <select id="activity" name="activity" class="form-input bg-white">
+                                    <option value="" disabled selected>Select an activity</option>
+                                    <option value="Chimpanzee Tracking">Chimpanzee Tracking</option>
+                                    <option value="Canopy Walk">Canopy Walk</option>
+                                    <option value="Nature Trails">Nature Trails</option>
+                                    <option value="Boat Ride">Boat Ride</option>
+                                    <option value="Colobus Monkey Tracking">Colobus Monkey Tracking</option>
+                                    <option value="Imbaraga Trail">Imbaraga Trail</option>
+                                    <option value="Cyincobe Trail">Cyincobe Trail</option>
+                                    <option value="Bigugu Trail">Bigugu Trail</option>
+                                </select>
+                            </div>
+
+                            <!-- Date Selector -->
+                            <div>
+                                <label for="date" class="form-label">Date of Visit</label>
+                                <input type="date" id="date" name="date" class="form-input">
+                            </div>
+
+                            <!-- Time Selector -->
+                            <div>
+                                <label for="time" class="form-label">Preferred Time</label>
+                                <select id="time" name="time" class="form-input bg-white">
+                                    <option value="" disabled selected>Select a time</option>
+                                    <option value="06:00">06:00 AM (Early Bird)</option>
+                                    <option value="08:00">08:00 AM</option>
+                                    <option value="10:00">10:00 AM</option>
+                                    <option value="13:00">01:00 PM</option>
+                                    <option value="15:00">03:00 PM</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Number of Visitors -->
+                            <div>
+                                <label for="visitors" class="form-label">Number of Visitors</label>
+                                <input type="number" id="visitors" name="visitors" min="1" value="1" class="form-input">
+                            </div>
+
+                            <!-- Nationality -->
+                            <div>
+                                <label for="nationality" class="form-label">Nationality</label>
+                                <select id="nationality" name="nationality" class="form-input bg-white">
+                                    <option value="" disabled selected>Select nationality</option>
+                                    <option value="RW">Rwandan</option>
+                                    <option value="EAC">East African Community (EAC)</option>
+                                    <option value="INTL">International</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <!-- Tour Company Option -->
+                        <div class="flex items-start">
+                            <div class="flex items-center h-5">
+                                <input id="tour_company" name="tour_company" type="checkbox"
+                                    class="focus:ring-ezee-green h-5 w-5 text-ezee-green border-gray-300 rounded">
+                            </div>
+                            <div class="ml-3 text-sm">
+                                <label for="tour_company" class="font-medium text-gray-700">Booking via Tour
+                                    Company?</label>
+                                <p class="text-gray-500">Check this if you are a registered tour operator.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Section 2: Personal Info (Simplified for Demo) -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-ezee-dark border-b border-gray-200 pb-2">Your Contact</h3>
+                        <div class="grid grid-cols-1 gap-6">
+                            <div>
+                                <label for="fullname" class="form-label">Full Name</label>
+                                <input type="text" id="fullname" name="fullname" placeholder="John Doe"
+                                    class="form-input">
+                            </div>
+                            <div>
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" id="email" name="email" placeholder="john@example.com"
+                                    class="form-input">
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <!-- Section 3: Payment Section -->
+                    <div class="space-y-6">
+                        <h3 class="text-lg font-bold text-ezee-dark border-b border-gray-200 pb-2">Payment Details</h3>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Payment Method: Card -->
+                            <div class="border rounded-lg p-4 cursor-pointer hover:border-ezee-green hover:bg-green-50 transition"
+                                onclick="selectPayment('card')">
+                                <div class="flex items-center">
+                                    <input type="radio" name="payment_method" id="card" value="card"
+                                        class="h-4 w-4 text-ezee-green focus:ring-ezee-green border-gray-300" checked>
+                                    <label for="card"
+                                        class="ml-3 block text-sm font-medium text-gray-700 cursor-pointer">
+                                        Credit Card
+                                        <div class="mt-1 flex space-x-2">
+                                            <!-- Icons placeholders -->
+                                            <div class="h-6 w-10 bg-gray-200 rounded"></div>
+                                            <div class="h-6 w-10 bg-gray-200 rounded"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- Payment Method: Mobile Money -->
+                            <div class="border rounded-lg p-4 cursor-pointer hover:border-ezee-green hover:bg-green-50 transition"
+                                onclick="selectPayment('momo')">
+                                <div class="flex items-center">
+                                    <input type="radio" name="payment_method" id="momo" value="momo"
+                                        class="h-4 w-4 text-ezee-green focus:ring-ezee-green border-gray-300">
+                                    <label for="momo"
+                                        class="ml-3 block text-sm font-medium text-gray-700 cursor-pointer">
+                                        Mobile Money
+                                        <div class="mt-1 flex space-x-2">
+                                            <div class="h-6 w-10 bg-yellow-300 rounded"></div>
+                                        </div>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Card Details (Mockup) -->
+                        <div class="grid grid-cols-1 gap-6 pt-4">
+                            <div>
+                                <label for="card_number" class="form-label">Card Number</label>
+                                <input type="text" id="card_number" placeholder="0000 0000 0000 0000"
+                                    class="form-input">
+                            </div>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div>
+                                    <label for="expiry" class="form-label">Expiry Date</label>
+                                    <input type="text" id="expiry" placeholder="MM/YY" class="form-input">
+                                </div>
+                                <div>
+                                    <label for="cvc" class="form-label">CVC</label>
+                                    <input type="text" id="cvc" placeholder="123" class="form-input">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Confirmation Button -->
+                    <div class="pt-6">
+                        <button type="button" onclick="alert('Booking Confirmed! (This is a simplified prototype)')"
+                            class="w-full bg-ezee-gold text-white font-bold text-lg py-4 rounded-lg shadow-lg hover:bg-opacity-90 hover:shadow-xl transition duration-300 transform hover:-translate-y-1">
+                            Confirm Booking
+                        </button>
+                        <p class="text-xs text-gray-500 text-center mt-4">By clicking confirm, you agree to our Terms of
+                            Service.</p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Front Desk Help Widget -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <!-- Chat Dialog (Hidden by default) -->
+        <div id="frontDeskChat"
+            class="hidden bg-white w-80 rounded-2xl shadow-2xl overflow-hidden mb-4 border border-gray-200 transform transition-all duration-300 origin-bottom-right">
+            <div class="bg-ezee-dark p-4 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="bg-white p-1.5 rounded-full border border-gray-200">
+                        <svg class="w-6 h-6 text-ezee-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h5 class="text-white font-bold text-sm">AI Assistant</h5>
+                        <p class="text-green-200 text-xs flex items-center"><span
+                                class="w-2 h-2 bg-green-400 rounded-full mr-1"></span> Online</p>
+                    </div>
+                </div>
+                <button onclick="toggleHeadset()" class="text-gray-300 hover:text-white transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+            <div class="p-4 bg-gray-50 h-64 overflow-y-auto space-y-3" id="chatMessages">
+                <div class="flex items-start">
+                    <div
+                        class="bg-white p-3 rounded-lg rounded-tl-none shadow-sm text-sm text-gray-700 max-w-[85%] border border-gray-100">
+                        Hello! Welcome back. Are you ready to confirm your visit to the Chimpanzees or Canopy Walk?
+                    </div>
+                </div>
+            </div>
+            <div class="p-3 bg-white border-t border-gray-100">
+                <div class="relative">
+                    <input type="text" placeholder="Type a message..."
+                        class="w-full pl-3 pr-10 py-2 border border-gray-200 rounded-full text-sm focus:outline-none focus:border-ezee-green focus:ring-1 focus:ring-ezee-green">
+                    <button
+                        class="absolute right-1.5 top-1.5 bg-ezee-gold p-1 rounded-full text-white hover:bg-opacity-90 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Button -->
+        <button onclick="toggleHeadset()"
+            class="bg-ezee-gold hover:bg-opacity-90 text-white p-4 rounded-full shadow-lg transition transform hover:scale-110 flex items-center justify-center group relative border-2 border-white">
+            <span class="absolute -top-1 -right-1 flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+            </span>
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                </path>
+            </svg>
+            <span
+                class="absolute right-full mr-3 bg-white text-gray-800 text-xs font-bold px-2 py-1 rounded shadow-md opacity-0 group-hover:opacity-100 transition whitespace-nowrap">AI
+                Help</span>
+        </button>
+    </div>
+
+    <script>
+        function selectPayment(method) {
+            document.getElementById(method).checked = true;
+        }
+
+        function toggleHeadset() {
+            const chat = document.getElementById('frontDeskChat');
+            chat.classList.toggle('hidden');
+        }
+    </script>
+</body>
+
+</html>

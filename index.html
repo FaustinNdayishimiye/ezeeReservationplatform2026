@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> EZEE National Park - Reservation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        ezee: {
+                            green: '#1A4D2E',
+                            dark: '#0F2C1B',
+                            brown: '#4E342E',
+                            gold: '#FF9F1C',
+                            light: '#F3F4F6'
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-bg {
+            background-image: url('./NyungweBackground.webp');
+            /* Misty Forest / Chimpanzee Vibe */
+            background-size: cover;
+            background-position: center;
+        }
+
+        /* Custom Logo Text Size */
+        .logo-text {
+            font-size: 13px !important;
+            /* Smaller precise size */
+        }
+    </style>
+</head>
+
+<body class="font-sans text-gray-800 antialiased">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center flex-col">
+                    <img src="./logo.png" alt="Ezee Reservation" class="h-16 w-auto mb-1">
+                    <span class="logo-text text-white font-bold tracking-wider font-sans italic" id="logoText">eZee
+                        <span class="text-ezee-gold">Reservation</span></span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#"
+                            class="text-white hover:text-ezee-gold px-3 py-2 rounded-md text-sm font-medium transition">Home</a>
+                        <a href="#activities"
+                            class="text-white hover:text-ezee-gold px-3 py-2 rounded-md text-sm font-medium transition">Activities</a>
+                        <a href="#"
+                            class="text-white hover:text-ezee-gold px-3 py-2 rounded-md text-sm font-medium transition">Plan
+                            Your Visit</a>
+                        <a href="login.html"
+                            class="text-white hover:text-ezee-gold px-3 py-2 rounded-md text-sm font-medium transition">Login</a>
+                        <a href="booking.html"
+                            class="bg-ezee-gold text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg hover:bg-opacity-90 transition transform hover:scale-105">Book
+                            Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="relative h-screen hero-bg flex items-center justify-center">
+        <div class="absolute inset-0 bg-black bg-opacity-40"></div>
+
+        <div class="relative z-10 text-center px-4 max-w-4xl mx-auto">
+            <h1 class="text-5xl md:text-7xl font-bold text-white mb-6 drop-shadow-lg uppercase">
+                Make your adventure to <br /> <span class="text-ezee-gold">Nyungwe beauty</span>
+            </h1>
+            <p class="text-xl text-gray-200 mb-10 max-w-2xl mx-auto">
+                Experience the magic of Rwanda's primate capital. Trek with chimpanzees, walk above the canopy, and
+                explore untamed nature.
+            </p>
+
+
+        </div>
+    </div>
+
+    <!-- Featured Activities Section -->
+    <div id="activities" class="py-24 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-ezee-green font-bold text-lg uppercase tracking-widest mb-2">Adventures Await</h2>
+                <h3 class="text-4xl font-bold text-gray-900">Featured Experiences</h3>
+                <div class="w-24 h-1 bg-ezee-gold mx-auto mt-4 rounded-full"></div>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                <!-- Activity 1: Chimpanzee -->
+                <div
+                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="./chimpanzees-male-all-lives-females-community-mother.webp" alt="Chimpanzee"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                        <div
+                            class="absolute top-4 right-4 bg-ezee-gold text-white text-xs font-bold px-3 py-1 rounded-full">
+                            Top Seller</div>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-bold text-ezee-dark mb-2">Chimpanzee Tracking</h4>
+                        <p class="text-gray-600 mb-4 line-clamp-2">Embark on a thrilling trek through the forest to
+                            observe these playful primates in their natural habitat.</p>
+                        <div class="flex items-center justify-between mt-6">
+                            <span class="text-ezee-green font-bold">$90 <span
+                                    class="text-sm text-gray-400 font-normal">/ person</span></span>
+                            <a href="booking.html" class="text-ezee-gold font-semibold flex items-center">Book Now
+                                &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity 2: Cyincobe Trail -->
+                <div
+                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="./cyincobe.jpeg" alt="Cyincobe Trail"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-bold text-ezee-dark mb-2">Cyincobe Trail</h4>
+                        <p class="text-gray-600 mb-4 line-clamp-2">A moderate 3-day hike offering stunning views of
+                            pristine forest and waterfalls.</p>
+                        <div class="flex items-center justify-between mt-6">
+                            <span class="text-ezee-green font-bold">$40 <span
+                                    class="text-sm text-gray-400 font-normal">/ person</span></span>
+                            <a href="booking.html" class="text-ezee-gold font-semibold flex items-center">Book Now
+                                &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity 3: Imbaraga Trail -->
+                <div
+                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="./imbaraga Trail.jpeg" alt="Imbaraga Trail"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-bold text-ezee-dark mb-2">Imbaraga Trail</h4>
+                        <p class="text-gray-600 mb-4 line-clamp-2">A challenging hike for experienced trekkers,
+                            featuring four stunning waterfalls.</p>
+                        <div class="flex items-center justify-between mt-6">
+                            <span class="text-ezee-green font-bold">$50 <span
+                                    class="text-sm text-gray-400 font-normal">/ person</span></span>
+                            <a href="booking.html" class="text-ezee-gold font-semibold flex items-center">Book Now
+                                &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity 4: Colobus Monkey -->
+                <div
+                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="./Colobus Monkey Tracking.jpeg" alt="Colobus Monkey"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-bold text-ezee-dark mb-2">Colobus Monkey Tracking</h4>
+                        <p class="text-gray-600 mb-4 line-clamp-2">Witness the largest troop of Rwenzori Colobus
+                            monkeys, often numbering over 300.</p>
+                        <div class="flex items-center justify-between mt-6">
+                            <span class="text-ezee-green font-bold">$60 <span
+                                    class="text-sm text-gray-400 font-normal">/ person</span></span>
+                            <a href="booking.html" class="text-ezee-gold font-semibold flex items-center">Book Now
+                                &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity 5: Canopy Walkway -->
+                <div
+                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="./Canopy.jpeg" alt="Canopy Walker"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                        <div
+                            class="absolute top-4 right-4 bg-ezee-gold text-white text-xs font-bold px-3 py-1 rounded-full">
+                            Famous</div>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-bold text-ezee-dark mb-2">Canopy Walker</h4>
+                        <p class="text-gray-600 mb-4 line-clamp-2">Suspended 60 meters above the forest floor, offering
+                            breathtaking panoramic views.</p>
+                        <div class="flex items-center justify-between mt-6">
+                            <span class="text-ezee-green font-bold">$60 <span
+                                    class="text-sm text-gray-400 font-normal">/ person</span></span>
+                            <a href="booking.html" class="text-ezee-gold font-semibold flex items-center">Book Now
+                                &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity 6: Bigugu Trail -->
+                <div
+                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    <div class="relative h-64 overflow-hidden">
+                        <img src="./mountbigugu.webp" alt="Bigugu Trail"
+                            class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-2xl font-bold text-ezee-dark mb-2">Bigugu Trail</h4>
+                        <p class="text-gray-600 mb-4 line-clamp-2">The highest peak in the park, offering challenging
+                            terrain and spectacular vistas.</p>
+                        <div class="flex items-center justify-between mt-6">
+                            <span class="text-ezee-green font-bold">$50 <span
+                                    class="text-sm text-gray-400 font-normal">/ person</span></span>
+                            <a href="booking.html" class="text-ezee-gold font-semibold flex items-center">Book Now
+                                &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Call to Action -->
+    <div class="bg-ezee-green py-20 relative overflow-hidden">
+        <div
+            class="absolute inset-0 opacity-20 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] hover:opacity-30 transition duration-500">
+        </div>
+        <div class="max-w-4xl mx-auto px-4 text-center relative z-10">
+            <h2 class="text-3xl md:text-5xl font-bold text-white mb-6">Ready for the Adventure of a Lifetime?</h2>
+            <p class="text-green-100 text-lg mb-10">Book your slot now to secure your place in the heart of Africa's
+                oldest rainforest.</p>
+            <a href="booking.html"
+                class="inline-block bg-white text-ezee-green font-bold text-lg px-10 py-4 rounded-full shadow-2xl hover:bg-ezee-gold hover:text-white transition duration-300 transform hover:scale-105">
+                Reserve Your Spot Today
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-ezee-dark text-white py-12 border-t border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <div>
+                <h3 class="text-2xl font-bold mb-4">Ezee<span class="text-ezee-gold">Reservation</span></h3>
+                <p class="text-gray-400 text-sm">Conservation, Adventure, and Discovery in the heart of Rwanda.</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Explore</h4>
+                <ul class="space-y-2 text-gray-400 text-sm">
+                    <li><a href="#" class="hover:text-white transition">About Us</a></li>
+                    <li><a href="#" class="hover:text-white transition">Wildlife</a></li>
+                    <li><a href="#" class="hover:text-white transition">Gallery</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Visit</h4>
+                <ul class="space-y-2 text-gray-400 text-sm">
+                    <li><a href="#" class="hover:text-white transition">Plan Your Trip</a></li>
+                    <li><a href="#" class="hover:text-white transition">Accommodation</a></li>
+                    <li><a href="#" class="hover:text-white transition">Permits</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Contact</h4>
+                <p class="text-gray-400 text-sm mb-2">info@ezeereservation.com</p>
+                <p class="text-gray-400 text-sm">+250 788 123 456</p>
+            </div>
+            <div>
+                <h4 class="font-bold mb-4">Follow Us</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <span class="sr-only">Instagram</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772 4.902 4.902 0 011.772-1.153c.636-.247 1.363-.416 2.427-.465 1.067-.047 1.409-.06 3.809-.06zm1.49 11.013a3.501 3.501 0 11-5.61-4.8 3.501 3.501 0 015.61 4.8zm-9.366-2.97a1.5 1.5 0 11-2.122-2.12 1.5 1.5 0 012.122 2.12z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <span class="sr-only">X (Twitter)</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path
+                                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                        </svg>
+                    </a>
+                    <a href="#" class="text-gray-400 hover:text-white transition">
+                        <span class="sr-only">Facebook</span>
+                        <svg class="h-6 w-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <path fill-rule="evenodd"
+                                d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center text-gray-600 text-xs mt-12">
+            &copy; 2026 Ezee Reservation System. All rights reserved.
+        </div>
+    </footer>
+
+    <!-- Front Desk Help Widget -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <!-- Chat Dialog (Hidden by default) -->
+        <div id="frontDeskChat"
+            class="hidden bg-white w-80 rounded-2xl shadow-2xl overflow-hidden mb-4 border border-gray-200 transform transition-all duration-300 origin-bottom-right">
+            <div class="bg-ezee-dark p-4 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="bg-white p-1.5 rounded-full border border-gray-200">
+                        <svg class="w-6 h-6 text-ezee-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                            </path>
+                        </svg>
+                    </div>
+                    <div>
+                        <h5 class="text-white font-bold text-sm">AI Assistant</h5>
+                        <p class="text-green-200 text-xs flex items-center"><span
+                                class="w-2 h-2 bg-green-400 rounded-full mr-1"></span> Online</p>
+                    </div>
+                </div>
+                <button onclick="toggleHeadset()" class="text-gray-300 hover:text-white transition">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+            <div class="p-4 bg-gray-50 h-64 overflow-y-auto space-y-3" id="chatMessages">
+                <div class="flex items-start">
+                    <div
+                        class="bg-white p-3 rounded-lg rounded-tl-none shadow-sm text-sm text-gray-700 max-w-[85%] border border-gray-100">
+                        Hello! Welcome to Ezee Reservation. Are you planning to visit our different animals like
+                        Chimpanzees or Monkeys today?
+                    </div>
+                </div>
+                <div class="flex items-start">
+                    <button
+                        class="bg-ezee-green text-white px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-ezee-dark transition ml-1"
+                        onclick="alert('Connecting you to an agent...')">Check Availability</button>
+                    <button
+                        class="bg-white border border-ezee-green text-ezee-green px-3 py-1.5 rounded-full text-xs font-semibold hover:bg-green-50 transition ml-2"
+                        onclick="alert('Connecting you to an agent...')">Pricing Info</button>
+                </div>
+            </div>
+            <div class="p-3 bg-white border-t border-gray-100">
+                <div class="relative">
+                    <input type="text" placeholder="Type a message..."
+                        class="w-full pl-3 pr-10 py-2 border border-gray-200 rounded-full text-sm focus:outline-none focus:border-ezee-green focus:ring-1 focus:ring-ezee-green">
+                    <button
+                        class="absolute right-1.5 top-1.5 bg-ezee-gold p-1 rounded-full text-white hover:bg-opacity-90 transition">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Button -->
+        <!-- Floating Button -->
+        <button onclick="toggleHeadset()"
+            class="bg-ezee-gold hover:bg-opacity-90 text-white p-4 rounded-full shadow-lg transition transform hover:scale-110 flex items-center justify-center group relative border-2 border-white">
+            <span class="absolute -top-1 -right-1 flex h-3 w-3">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-3 w-3 bg-red-500"></span>
+            </span>
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z">
+                </path>
+            </svg>
+            <span
+                class="absolute right-full mr-3 bg-white text-gray-800 text-xs font-bold px-2 py-1 rounded shadow-md opacity-0 group-hover:opacity-100 transition whitespace-nowrap">AI
+                Help</span>
+        </button>
+    </div>
+
+    <script>
+        function toggleHeadset() {
+            const chat = document.getElementById('frontDeskChat');
+            chat.classList.toggle('hidden');
+        }
+    </script>
+
+    <script>
+        // Navbar scroll effect
+        window.addEventListener('scroll', function () {
+            const navbar = document.getElementById('navbar');
+            const navLinks = navbar.querySelectorAll('a.text-sm'); // Selects the nav links (Home, Activities, etc)
+            const logoText = document.getElementById('logoText');
+
+            if (window.scrollY > 50) {
+                // Scrolled: White Background, Dark Text
+                navbar.classList.add('bg-white', 'shadow-md');
+                navbar.classList.remove('bg-transparent');
+
+                // Links
+                navLinks.forEach(link => {
+                    if (!link.classList.contains('bg-ezee-gold')) { // Skip the Book Now button
+                        link.classList.remove('text-white');
+                        link.classList.add('text-ezee-dark');
+                    }
+                });
+
+                // Logo
+                if (logoText) {
+                    logoText.classList.remove('text-white');
+                    logoText.classList.add('text-ezee-dark');
+                }
+
+            } else {
+                // Top: Transparent Background, White Text
+                navbar.classList.remove('bg-white', 'shadow-md');
+                navbar.classList.add('bg-transparent');
+
+                // Links
+                navLinks.forEach(link => {
+                    if (!link.classList.contains('bg-ezee-gold')) {
+                        link.classList.add('text-white');
+                        link.classList.remove('text-ezee-dark');
+                    }
+                });
+
+                // Logo
+                if (logoText) {
+                    logoText.classList.add('text-white');
+                    logoText.classList.remove('text-ezee-dark');
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

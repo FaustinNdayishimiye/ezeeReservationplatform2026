@@ -61,6 +61,19 @@
                     <span class="logo-text text-white font-bold tracking-wider font-sans italic" id="logoText">eZee
                         <span class="text-ezee-gold">Reservation</span></span>
                 </div>
+                <!-- Mobile menu button -->
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')"
+                        class="bg-transparent inline-flex items-center justify-center p-2 rounded-md text-white hover:text-white hover:bg-white/10 focus:outline-none"
+                        aria-controls="mobile-menu" aria-expanded="false">
+                        <span class="sr-only">Open main menu</span>
+                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                            stroke="currentColor" aria-hidden="true">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
                 <div class="hidden md:block">
                     <div class="ml-10 flex items-baseline space-x-8">
                         <a href="#"
@@ -73,12 +86,30 @@
                         <a href="login.html"
                             class="text-white hover:text-ezee-gold px-3 py-2 rounded-md text-sm font-medium transition">Login</a>
                         <a href="booking.html"
-                            class="bg-ezee-gold text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg hover:bg-opacity-90 transition transform hover:scale-105">Book
+                            class="bg-ezee-gold text-white px-5 py-2 rounded-full text-sm font-bold shadow-lg hover:bg-ezee-gold/90 transition transform hover:scale-105 hover:shadow-xl active:scale-95">Book
                             Now</a>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-ezee-green/95 backdrop-blur-md transition-all duration-300 ease-in-out"
+            id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#"
+                    class="text-white hover:bg-black/20 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Home</a>
+                <a href="#activities"
+                    class="text-white hover:bg-black/20 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Activities</a>
+                <a href="#"
+                    class="text-white hover:bg-black/20 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Plan
+                    Your Visit</a>
+                <a href="login.html"
+                    class="text-white hover:bg-black/20 hover:text-white block px-3 py-2 rounded-md text-base font-medium">Login</a>
+                <a href="booking.html"
+                    class="bg-ezee-gold text-white block px-3 py-2 rounded-md text-base font-bold hover:bg-ezee-gold/90 mt-4 text-center shadow-md">Book
+                    Now</a>
+            </div>
     </nav>
 
     <!-- Hero Section -->
@@ -111,7 +142,7 @@
 
                 <!-- Activity 1: Chimpanzee -->
                 <div
-                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 hover:ring-2 hover:ring-ezee-gold/50 cursor-pointer">
                     <div class="relative h-64 overflow-hidden">
                         <img src="./chimpanzees-male-all-lives-females-community-mother.webp" alt="Chimpanzee"
                             class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
@@ -134,7 +165,7 @@
 
                 <!-- Activity 2: Cyincobe Trail -->
                 <div
-                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 hover:ring-2 hover:ring-ezee-gold/50 cursor-pointer">
                     <div class="relative h-64 overflow-hidden">
                         <img src="./cyincobe.jpeg" alt="Cyincobe Trail"
                             class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
@@ -154,7 +185,7 @@
 
                 <!-- Activity 3: Imbaraga Trail -->
                 <div
-                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 hover:ring-2 hover:ring-ezee-gold/50 cursor-pointer">
                     <div class="relative h-64 overflow-hidden">
                         <img src="./imbaraga Trail.jpeg" alt="Imbaraga Trail"
                             class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
@@ -174,7 +205,7 @@
 
                 <!-- Activity 4: Colobus Monkey -->
                 <div
-                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 hover:ring-2 hover:ring-ezee-gold/50 cursor-pointer">
                     <div class="relative h-64 overflow-hidden">
                         <img src="./Colobus Monkey Tracking.jpeg" alt="Colobus Monkey"
                             class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
@@ -194,7 +225,7 @@
 
                 <!-- Activity 5: Canopy Walkway -->
                 <div
-                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 cursor-pointer">
+                    class="group bg-white rounded-2xl shadow-xl overflow-hidden hover:shadow-2xl transition duration-300 transform hover:-translate-y-2 hover:ring-2 hover:ring-ezee-gold/50 cursor-pointer">
                     <div class="relative h-64 overflow-hidden">
                         <img src="./Canopy.jpeg" alt="Canopy Walker"
                             class="w-full h-full object-cover transform group-hover:scale-110 transition duration-700">
